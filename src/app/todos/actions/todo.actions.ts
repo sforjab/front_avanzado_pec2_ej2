@@ -32,3 +32,14 @@ export const getAllTodosError = createAction(
     '[TODOS] Get all error',
     props<{ payload: any }>()
 );
+
+// ACción para completar todas las tareas
+export const completeAllTodos = createAction(
+    '[TODOS] Complete all todos'
+);
+
+// Acción para eliminar todas las tareas completadas
+export const deleteAllCompletedTodos = createAction(
+    '[TODOS] Delete all completed todos'
+);
+

@@ -17,9 +17,9 @@
             {{ todo.title }}
         </div>
         <div class="col-8">
-            <button (click)="completeTask()" class="btn btn-success" type="button" *ngIf="!todo.done">Done</button>
-            <button (click)="editTask()" class="btn btn-primary ml-2" type="button" *ngIf="!todo.done">Edit</button>
-            <button (click)="deleteTask()" class="btn btn-danger ml-2" type="button">Delete</button>
+            <button (click)="completeTask()" class="btn btn-success mx-1" type="button" *ngIf="!todo.done">Done</button>
+            <button (click)="editTask()" class="btn btn-primary mx-1" type="button" *ngIf="!todo.done">Edit</button>
+            <button (click)="deleteTask()" class="btn btn-danger mx-1" type="button">Delete</button>
         </div>
     </div>
 </div>

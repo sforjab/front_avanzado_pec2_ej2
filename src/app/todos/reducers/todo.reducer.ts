@@ -1,8 +1,6 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import { TodoDTO } from '../models/todo.dto';
-import { completeTodo, createTodo, deleteTodo, editTodo, getAllTodos, getAllTodosError, getAllTodosSuccess } from '../actions';
-
-//export const initialState: TodoDTO[] = [new TodoDTO('Terminar práctica 2')];
+import { completeAllTodos, completeTodo, createTodo, deleteAllCompletedTodos, deleteTodo, editTodo, getAllTodos, getAllTodosError, getAllTodosSuccess } from '../actions';
 
 export interface TodoState {
     todos: TodoDTO[];
@@ -20,26 +18,12 @@ export const initialState: TodoState = {
 
 const _todoReducer = createReducer(
     initialState,
-    //on(createTodo, (state, { title }) => [...state, new TodoDTO(title)]),
     on(createTodo, (state, { title }) => ({
         ...state,
         loading: false,
         loaded: false,
         todos: [...state.todos, new TodoDTO(title)]
     })),
-    /* on(completeTodo, (state, { id }) => {
-        return state.map((todo) => {
-            if(todo.id === id) {
-                return {
-                    ...todo,
-                    done: true
-                };
-            } else {
-                return todo;
-            }
-        });
-    }),*/
-
     on(completeTodo, (state, { id }) => ({
         ...state,
         loading: false,
@@ -55,31 +39,6 @@ const _todoReducer = createReducer(
             }
         })]
     })),
-        /* return state.map((todo) => {
-            if(todo.id === id) {
-                return {
-                    ...todo,
-                    done: true
-                };
-            } else {
-                return todo;
-            }
-        }); 
-    })*/
-
-    /*on(editTodo, (state, { id, title }) => {
-        return state.map((todo) => {
-            if(todo.id === id) {
-                return {
-                    ...todo,
-                    title: title
-                };
-            } else {
-                return todo;
-            }
-        });
-    }),*/
-
     on(editTodo, (state, { id, title }) => ({
         ...state,
         loading: false,
@@ -95,11 +54,6 @@ const _todoReducer = createReducer(
             }
         })]
     })),
-
-    /*on(deleteTodo, (state, { id }) => {
-        return state.filter(todo => todo.id !== id);
-    }) */
-
     on(deleteTodo, (state, { id }) => ({
         ...state,
         loading: false,
@@ -122,6 +76,21 @@ const _todoReducer = createReducer(
             status: payload.status,
             message: payload.message
         }
+    })),
+    on(completeAllTodos, state => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        todos: state.todos.map(todo => ({
+            ...todo,
+            done: true
+        }))
+    })),
+    on(deleteAllCompletedTodos, state => ({
+        ...state,
+        loading: false,
+        loaded: false,
+        todos: state.todos.filter(todo => !todo.done)
     }))
 );
 
